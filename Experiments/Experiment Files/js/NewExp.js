@@ -35,8 +35,8 @@ function make_slides(f) {
     },
     button : function() {
       if (exp.sliderPost != null) {
-        exp.go(); //use exp.go() if and only if there is no "present" data.
         this.log_responses();
+        exp.go(); //use exp.go() if and only if there is no "present" data.
       } else {
         $(".err").show();
       }
@@ -63,8 +63,9 @@ function make_slides(f) {
     },
     button : function() {
       if (exp.sliderPost != null) {
-        exp.go(); //use exp.go() if and only if there is no "present" data.
         this.log_responses();
+        exp.go(); //use exp.go() if and only if there is no "present" data.
+        
       } else {
         $(".err").show();
       }
@@ -91,8 +92,9 @@ function make_slides(f) {
     },
     button : function() {
       if (exp.sliderPost != null) {
-        exp.go(); //use exp.go() if and only if there is no "present" data.
         this.log_responses();
+        exp.go(); //use exp.go() if and only if there is no "present" data.
+        
       } else {
         $(".err").show();
       }
@@ -119,8 +121,9 @@ function make_slides(f) {
     },
     button : function() {
       if (exp.sliderPost != null) {
-        exp.go(); //use exp.go() if and only if there is no "present" data.
         this.log_responses();
+        exp.go(); //use exp.go() if and only if there is no "present" data.
+        
       } else {
         $(".err").show();
       }
@@ -147,8 +150,9 @@ function make_slides(f) {
     },
     button : function() {
       if (exp.sliderPost != null) {
-        exp.go(); //use exp.go() if and only if there is no "present" data.
         this.log_responses();
+        exp.go(); //use exp.go() if and only if there is no "present" data.
+        
       } else {
         $(".err").show();
       }
