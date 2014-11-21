@@ -1,3 +1,4 @@
+
 function make_slides(f) {
   var   slides = {};
 
@@ -26,150 +27,186 @@ function make_slides(f) {
     end : function() {/*what to do at the end of a block*/}
   });
 
-  slides.first_slide = slide({
-    name : "first_slide",
+  slides.first_single_slide = slide({
+    name : "first_single_slide",
     start : function() {
       $(".err").hide();
+      var rand = Math.floor(Math.random()*(10-1+1)+1);
+      $('#ss_instruction1').text("Aliens on a newly found planet outside our solar system look very similar to humans. However, " + rand + "% of aliens on this planet have blue skin. If you met 100 aliens on this planet, on average, how many aliens with blue skin would you meet?"); //FRED
       this.init_sliders();
       exp.sliderPost = null;
     },
     button : function() {
       if (exp.sliderPost != null) {
-        this.log_responses();
+      	this.log_responses();
         exp.go(); //use exp.go() if and only if there is no "present" data.
       } else {
         $(".err").show();
       }
     },
     init_sliders : function() {
-      utils.make_slider("#slider1", function(event, ui) {
+      utils.make_slider("#sslider1", function(event, ui) {
         exp.sliderPost = ui.value * 100;
       });
     },
     log_responses : function() {
       exp.data_trials.push({
-        "trial_type" : "first_slide",
+        "trial_type" : "first_single_slide",
         "response" : exp.sliderPost
       });
     }
   });
 
-  slides.second_slide = slide({
-    name : "second_slide",
+  slides.second_single_slide = slide({
+    name : "second_single_slide",
     start : function() {
       $(".err").hide();
+      var rand = Math.floor(Math.random()*(55-45+1)+45);
+      $('#ss_instruction2').text("On the same planet, there is a " + rand + "% chance that an alien baby has green eyes. If 100 babies are born, approximately how many will have green eyes?" ); //FRED
       this.init_sliders();
       exp.sliderPost = null;
     },
     button : function() {
       if (exp.sliderPost != null) {
-        this.log_responses();
+      	this.log_responses();
         exp.go(); //use exp.go() if and only if there is no "present" data.
-        
       } else {
         $(".err").show();
       }
     },
     init_sliders : function() {
-      utils.make_slider("#slider2", function(event, ui) {
+      utils.make_slider("#sslider2", function(event, ui) {
         exp.sliderPost = ui.value * 100;
       });
     },
     log_responses : function() {
       exp.data_trials.push({
-        "trial_type" : "second_slide",
+        "trial_type" : "second_single_slide",
         "response" : exp.sliderPost
+        // "random int" : rand
       });
     }
   });
 
-  slides.third_slide = slide({
-    name : "third_slide",
+    slides.third_single_slide = slide({
+    name : "third_single_slide",
     start : function() {
       $(".err").hide();
+      var rand = Math.floor(Math.random()*(99-90+1)+90);
+      $('#ss_instruction3').text("Very few aliens on this planet are born without horns. If there is a " + rand + "% chance that an alien has horns, approximately how many out of a 100 aliens will have horns?" ); //FRED
       this.init_sliders();
       exp.sliderPost = null;
     },
     button : function() {
       if (exp.sliderPost != null) {
-        this.log_responses();
+      	this.log_responses();
         exp.go(); //use exp.go() if and only if there is no "present" data.
-        
       } else {
         $(".err").show();
       }
     },
     init_sliders : function() {
-      utils.make_slider("#slider3", function(event, ui) {
-        exp.sliderPost = ui.value * 1000;
+      utils.make_slider("#sslider3", function(event, ui) {
+        exp.sliderPost = ui.value * 100;
       });
     },
     log_responses : function() {
       exp.data_trials.push({
-        "trial_type" : "third_slide",
+        "trial_type" : "third_single_slide",
         "response" : exp.sliderPost
+        // "random int" : rand
       });
     }
-  });  
+  });
 
-  slides.fourth_slide = slide({
-    name : "fourth_slide",
-    start : function() {
+  // slides.fourth_slide = slide({
+  //   name : "fourth_slide",
+  //   start : function() {
+  //     $(".err").hide();
+  //     this.init_sliders();
+  //     exp.sliderPost = null;
+  //   },
+  //   button : function() {
+  //     if (exp.sliderPost != null) {
+  //     	this.log_responses();
+  //       exp.go(); //use exp.go() if and only if there is no "present" data.
+  //     } else {
+  //       $(".err").show();
+  //     }
+  //   },
+  //   init_sliders : function() {
+  //     utils.make_slider("#slider7", function(event, ui) {
+  //       exp.sliderPost = ui.value * 1000;
+  //     });
+  //   },
+  //   log_responses : function() {
+  //     exp.data_trials.push({
+  //       "trial_type" : "fourth_slide",
+  //       "response" : exp.sliderPost
+  //     });
+  //   }
+  // }); 
+
+  slides.multi_slider = slide({
+    name : "multi_slider",
+    present : _.shuffle([
+      {"property":"Red"},
+      // {"property":"Blue"},
+      // {"property":"White"},
+      // {"property":"Yellow"},
+    ]),
+    present_handle : function(stim) {
       $(".err").hide();
-      this.init_sliders();
-      exp.sliderPost = null;
+      this.stim = stim; //FRED: allows you to access stim in helpers
+      $('#ms_instruction').text("Suppose you are sitting on a bridge overlooking a freeway. If you see one thousand cars drive by, what colors do you think they will be. Use these sliders to tell us what you think."); //FRED
+      this.sentence_types = _.shuffle(["Red", "Blue", "White", "Yellow"]);
+      var sentences = {
+        "White": "How many white cars did you see?",
+        "Blue": "How many blue cars did you see?",
+        "Yellow": "How many yellow cars did you see?",
+        "Red": "How many red cars did you see?",
+      };
+      this.n_sliders = 4;
+      $(".slider_row").remove();
+      for (var i=0; i<this.n_sliders; i++) {
+        var sentence_type = this.sentence_types[i];
+        var sentence = sentences[sentence_type];
+        $("#multi_slider_table").append('<tr class="slider_row"><td class="slider_target" id="sentence' + i + '">' + sentence + '</td><td colspan="2"><div id="slider' + i + '" class="slider">-------[ ]--------</div></td></tr>');
+        utils.match_row_height("#multi_slider_table", ".slider_target");
+      }
+      this.init_sliders(this.sentence_types);
+      exp.sliderPost = [];
     },
     button : function() {
-      if (exp.sliderPost != null) {
-        this.log_responses();
-        exp.go(); //use exp.go() if and only if there is no "present" data.
-        
-      } else {
+      if (exp.sliderPost.length < this.n_sliders) {
         $(".err").show();
+      } else {
+      	this.log_responses();
+        _stream.apply(this); //use _stream.apply(this); if and only if there is "present" data.
       }
     },
-    init_sliders : function() {
-      utils.make_slider("#slider4", function(event, ui) {
-        exp.sliderPost = ui.value * 1000;
-      });
-    },
-    log_responses : function() {
-      exp.data_trials.push({
-        "trial_type" : "fourth_slide",
-        "response" : exp.sliderPost
-      });
-    }
-  }); 
-
-    slides.fifth_slide = slide({
-    name : "fifth_slide",
-    start : function() {
-      $(".err").hide();
-      this.init_sliders();
-      exp.sliderPost = null;
-    },
-    button : function() {
-      if (exp.sliderPost != null) {
-        this.log_responses();
-        exp.go(); //use exp.go() if and only if there is no "present" data.
-        
-      } else {
-        $(".err").show();
+    init_sliders : function(sentence_types) {
+      for (var i=0; i<4; i++) {
+        var sentence_type = sentence_types[i];
+        utils.make_slider("#slider" + i, this.make_slider_callback(i));
       }
     },
-    init_sliders : function() {
-      utils.make_slider("#slider5", function(event, ui) {
-        exp.sliderPost = ui.value * 1000;
-      });
+    make_slider_callback : function(i) {
+      return function(event, ui) {
+        exp.sliderPost[i] = ui.value;
+      };
     },
     log_responses : function() {
-      exp.data_trials.push({
-        "trial_type" : "fifth_slide",
-        "response" : exp.sliderPost
-      });
-    }
-  }); 
-
+      for (var i=0; i<4; i++) {
+        var sentence_type = this.sentence_types[i];
+        exp.data_trials.push({
+          "trial_type" : "multi_slider",
+          "sentence_type" : sentence_type,
+          "response" : exp.sliderPost[i]
+        });
+      }
+    },
+  });
 
   slides.subj_info =  slide({
     name : "subj_info",
@@ -220,7 +257,7 @@ function init() {
       screenUW: exp.width
     };
   //blocks of the experiment:
-  exp.structure=["i0", "instructions", "familiarization", 'first_slide', 'second_slide', 'third_slide',  'fourth_slide', 'fifth_slide', 'subj_info', 'thanks'];
+  exp.structure=["i0", "instructions", "familiarization", 'first_single_slide', 'second_single_slide', 'third_single_slide', 'multi_slider', 'subj_info', 'thanks'];
   
   exp.data_trials = [];
   //make corresponding slides:

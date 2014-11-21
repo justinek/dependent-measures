@@ -58,56 +58,57 @@
     <button onclick="_s.button()">Continue</button>
   </div>
  -->
-  <div class="slide" id="first_slide">
-    <p>Aliens on a newly found planet outside our solar system have blue skin. However, 5% of aliens on this planet have blue skin, and dark red spots. If you met 100 aliens on this planet, on average, how many aliens with spots would you meet?</p>
+  <div class="slide" id="first_single_slide">
+ <p id= 'ss_instruction1'></p>
     <table id="slider_table" class="slider_table">
       <tr><td class="left">0</td><td class="right">100</td></tr>
-      <tr><td colspan="2"><div id="slider1" class="slider"></div></td></tr>
+      <tr><td colspan="2"><div id="sslider1" class="slider"></div></td></tr>
     </table>
     <button onclick="_s.button()">Continue</button>
     <div class="err">Please adjust the slider before continuing.</div>
   </div>
 
-  <div class="slide" id="second_slide">
-    <p>On the same planet, there is a 25% chance that an alien baby has green eyes. If 100 babies are born, approximately how many will have green eyes? </p>
+  <div class="slide" id="second_single_slide">
+  <p id= 'ss_instruction2'></p>
     <table id="slider_table" class="slider_table">
       <tr><td class="left">0</td><td class="right">100</td></tr>
-      <tr><td colspan="2"><div id="slider2" class="slider"></div></td></tr>
+      <tr><td colspan="2"><div id="sslider2" class="slider"></div></td></tr>
     </table>
     <button onclick="_s.button()">Continue</button>
     <div class="err">Please adjust the slider before continuing.</div>
   </div>
 
-  <div class="slide" id="third_slide">
-    <p> Let's say you're sitting on a bridge overlooking the freeway and watching the cars go by. If you saw a thousand cars pass, how many of them do you think would be white? </p>
+  <div class="slide" id="third_single_slide">
+  <p id= 'ss_instruction3'></p>
     <table id="slider_table" class="slider_table">
-      <tr><td class="left">0</td><td class="right">1000</td></tr>
-      <tr><td colspan="2"><div id="slider3" class="slider"></div></td></tr>
+      <tr><td class="left">0</td><td class="right">100</td></tr>
+      <tr><td colspan="2"><div id="sslider3" class="slider"></div></td></tr>
     </table>
     <button onclick="_s.button()">Continue</button>
     <div class="err">Please adjust the slider before continuing.</div>
-  </div>  
+  </div>
 
+
+
+  <div class="slide" id="multi_slider">
+    <p id= 'ms_instruction'></p>
+    <table id="multi_slider_table" class="slider_table">
+      <tr><td></td><td class="left">0</td><td class="right">1000</td></tr>
+    </table>
+    <button onclick="_s.button()">Continue</button>
+    <div class="err">Please adjust all the sliders before continuing.</div>
+  </div>
+<!-- 
   <div class="slide" id="fourth_slide">
-    <p> In the same scenario, how many of those thousand cars do you think would have been yellow? </p>
-    <table id="slider_table" class="slider_table">
-      <tr><td class="left">0</td><td class="right">1000</td></tr>
-      <tr><td colspan="2"><div id="slider4" class="slider"></div></td></tr>
-    </table>
-    <button onclick="_s.button()">Continue</button>
-    <div class="err">Please adjust the slider before continuing.</div>
-  </div> 
-
-  <div class="slide" id="fifth_slide">
     <p> Now picture sitting on a bridge overlooking a different freeway. 600 (fill actual data here) out of the next thousand cars you saw pass are white. How many yellow cars did you think passed? </p>
     <table id="slider_table" class="slider_table">
       <tr><td class="left">0</td><td class="right">1000</td></tr>
-      <tr><td colspan="2"><div id="slider5" class="slider"></div></td></tr>
+      <tr><td colspan="2"><div id="slider7" class="slider"></div></td></tr>
     </table>
     <button onclick="_s.button()">Continue</button>
     <div class="err">Please adjust the slider before continuing.</div>
   </div>     
-
+ -->
   <div class="slide"  id="subj_info">
     <div class="long_form">
       <div class="subj_info_title">Additional information</div>
