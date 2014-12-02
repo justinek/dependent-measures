@@ -272,7 +272,7 @@ function make_slides(f) {
     present_handle : function(stim) {
       $(".err").hide();
       this.stim = stim; //FRED: allows you to access stim in helpers
-      $('#age_ms_instruction').text("How old do you think a baby born in the year 2000 in the United States would live to be?"); //FRED
+      $('#age_ms_instruction').text("How old do you think a person born in the year 2000 in the United States would live to be?"); //FRED
       this.sentence_types = ["20", "30", "40", "50", "60", "70", "80", "90"];
       var sentences = {
         "20": "Less than 20 years old",
@@ -282,7 +282,7 @@ function make_slides(f) {
         "60": "Between 50 and 60 years old",
         "70": "Between 60 and 70 years old",
         "80": "Between 70 and 80 years old",
-        "90": "Between 80 and 90 years old",
+        "90": "Above 80 years old",
       };
       this.n_sliders = 6;
       $(".slider_row").remove();
@@ -363,7 +363,7 @@ function make_slides(f) {
       exp.sliderPost = [];
     },
     button : function() {
-      if (exp.sliderPost.length < this.n_sliders) {
+      if (exp.sliderPost.length < this.n_sliders - 1) {
         $(".err").show();
       } else {
       	this.log_responses();
@@ -377,7 +377,8 @@ function make_slides(f) {
         	utils.make_slider("#car_fixed_slider" + i, this.make_slider_callback(i));      		
       	} else {
         	var sentence_type = sentence_types[i];
-        	utils.make_fixed_slider("#car_fixed_slider" + i, this.make_slider_callback(i));      		
+        	utils.make_fixed_slider("#car_fixed_slider" + i, this.make_slider_callback(i));
+          $("#car_fixed_slider5").slider("disable");    		
       	}
       }
     },
@@ -461,8 +462,17 @@ function init() {
       screenUW: exp.width
     };
   //blocks of the experiment:
-  // 1stBlock = _.shuffle(["first_single_slide", "second_single_slide", "third_single_slide"]);
-  exp.structure=["i0", "instructions", "familiarization", "first_single_slide", "second_single_slide", "third_single_slide", 'car_multi_slider', 'movie_multi_slider', 'age_multi_slider', 'car_fixed_multi_slider', 'subj_info', 'thanks'];
+  block1 = _.shuffle(["first_single_slide", "second_single_slide", "third_single_slide"]);
+  block2 = _.shuffle(["car_multi_slider", "movie_multi_slider", "age_multi_slider"]);
+  block3 = _.shuffle(["car_fixed_multi_slider"]);
+
+  //exp.structure=["i0", "instructions", "familiarization", "first_single_slide", "second_single_slide", "third_single_slide", 'car_multi_slider', 'movie_multi_slider', 'age_multi_slider', 'car_fixed_multi_slider', 'subj_info', 'thanks'];
+  pre = ["i0", "instructions"];
+  post = ['subj_info', 'thanks'];
+  exp.structure = pre.concat(block1).concat(block2).concat(block3).concat(post);
+  //exp.structure=['car_fixed_multi_slider', 'subj_info', 'thanks'];
+  
+  //exp.structure=firstBlock;
   
   exp.data_trials = [];
   //make corresponding slides:

@@ -86,6 +86,8 @@ var utils = {
 						change : response_callback
 		});
 		$(label + ' .ui-slider-handle').show();
+		//$(label + ' .ui-slider-handle').slider("disable");
+		//$( ".selector" ).slider( "disable" );
 		$(label).css({"background":"#99D6EB"});
 		$(label + ' .ui-slider-handle').css({
 			"background":"#667D94",
