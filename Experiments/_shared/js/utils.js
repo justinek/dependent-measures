@@ -72,7 +72,30 @@ var utils = {
 				});
 				});
 				$(label).css({"background":"#eee"});
-	}
+	},
+
+	make_fixed_slider: function(label, response_callback) {
+		$(label).empty();
+		$(label).slider({
+			range : "min",
+			min : 0,
+			max : 1,
+			step: 0.01,
+			value : 0.75,
+			slide : response_callback,
+						change : response_callback
+		});
+		$(label + ' .ui-slider-handle').show();
+		$(label).css({"background":"#99D6EB"});
+		$(label + ' .ui-slider-handle').css({
+			"background":"#667D94",
+			"border-color": "#001F29"
+		});
+	},
+
+
+
+
 }
 /*
 		var keys = getUnique.apply(list_keys);
