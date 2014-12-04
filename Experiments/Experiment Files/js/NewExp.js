@@ -183,7 +183,7 @@ function make_slides(f) {
       }
     },
     init_sliders : function(sentence_types) {
-      for (var i=0; i<6; i++) {
+      for (var i=0; i<this.n_sliders; i++) {
         var sentence_type = sentence_types[i];
         utils.make_slider("#car_slider" + i, this.make_slider_callback(i));
       }
@@ -194,7 +194,7 @@ function make_slides(f) {
       };
     },
     log_responses : function() {
-      for (var i=0; i<6; i++) {
+      for (var i=0; i<this.n_sliders; i++) {
         var sentence_type = this.sentence_types[i];
         exp.data_trials.push({
           "trial_type" : "car_multi_slider",
@@ -242,7 +242,7 @@ function make_slides(f) {
       }
     },
     init_sliders : function(sentence_types) {
-      for (var i=0; i<6; i++) {
+      for (var i=0; i<this.n_sliders; i++) {
         var sentence_type = sentence_types[i];
         utils.make_slider("#movie_slider" + i, this.make_slider_callback(i));
       }
@@ -253,7 +253,7 @@ function make_slides(f) {
       };
     },
     log_responses : function() {
-      for (var i=0; i<6; i++) {
+      for (var i=0; i<this.n_sliders; i++) {
         var sentence_type = this.sentence_types[i];
         exp.data_trials.push({
           "trial_type" : "movie_multi_slider",
@@ -266,7 +266,7 @@ function make_slides(f) {
 
 
  
-   slides.age_multi_slider = slide({
+  slides.age_multi_slider = slide({
     name : "age_multi_slider",
     present : [{"property":"Ages"}],
     present_handle : function(stim) {
@@ -284,7 +284,7 @@ function make_slides(f) {
         "80": "Between 70 and 80 years old",
         "90": "Above 80 years old",
       };
-      this.n_sliders = 6;
+      this.n_sliders = 8;
       $(".slider_row").remove();
       for (var i=0; i<this.n_sliders; i++) {
         var sentence_type = this.sentence_types[i];
@@ -304,7 +304,7 @@ function make_slides(f) {
       }
     },
     init_sliders : function(sentence_types) {
-      for (var i=0; i<6; i++) {
+      for (var i=0; i<this.n_sliders; i++) {
         var sentence_type = sentence_types[i];
         utils.make_slider("#age_slider" + i, this.make_slider_callback(i));
       }
@@ -316,7 +316,7 @@ function make_slides(f) {
       };
     },
     log_responses : function() {
-      for (var i=0; i<6; i++) {
+      for (var i=0; i<this.n_sliders; i++) {
         var sentence_type = this.sentence_types[i];
         exp.data_trials.push({
           "trial_type" : "age_multi_slider",
@@ -350,7 +350,7 @@ function make_slides(f) {
       for (var i=0; i<this.n_sliders; i++) {
         var sentence_type = this.sentence_types[i];
         var sentence = sentences[sentence_type];
-        if (i != 5) {
+        if (i != 0) {
         	$("#car_fixed_multi_slider_table").append('<tr class="slider_row"><td class="slider_target" id="sentence' + i + '">' + sentence + '</td><td colspan="2"><div id="car_fixed_slider' + i + '" class="slider">-------[ ]--------</div></td></tr>');
         	utils.match_row_height("#multi_slider_table", ".slider_target");
         } else {
@@ -371,14 +371,15 @@ function make_slides(f) {
       }
     },
     init_sliders : function(sentence_types) {
-      for (var i=0; i<6; i++) {
-      	if (i != 5) {
+      for (var i=0; i<this.n_sliders; i++) {
+      	if (i != 0) {
         	var sentence_type = sentence_types[i];
         	utils.make_slider("#car_fixed_slider" + i, this.make_slider_callback(i));      		
       	} else {
         	var sentence_type = sentence_types[i];
-        	utils.make_fixed_slider("#car_fixed_slider" + i, this.make_slider_callback(i));
-          $("#car_fixed_slider5").slider("disable");    		
+          var fix_value = 0.25;
+        	utils.make_fixed_slider("#car_fixed_slider" + i, this.make_slider_callback(i), fix_value);
+          $("#car_fixed_slider0").slider("disable");    		
       	}
       }
     },
@@ -387,18 +388,8 @@ function make_slides(f) {
         exp.sliderPost[i] = ui.value;
       };
     },
-  	slide: function(i){
-  		// function(event, ui);
-    	var result = true;
-    	if (ui.value != 0.75){
-        	$(this).slider( "value" , 0.75);
-        	result = false;
-    	}
-    	$( "#amount" ).val( $(this).slider( "value") );
-    	return result;
-    },
     log_responses : function() {
-      for (var i=0; i<6; i++) {
+      for (var i=0; i<this.n_sliders; i++) {
         var sentence_type = this.sentence_types[i];
         exp.data_trials.push({
           "trial_type" : "car_fixed_multi_slider",
@@ -410,6 +401,150 @@ function make_slides(f) {
   });
 
 
+  slides.movie_fixed_multi_slider = slide({
+    name : "movie_fixed_multi_slider",
+    present : [{"property":"Movies"},],
+    present_handle : function(stim) {
+      $(".err").hide();
+      this.stim = stim; //FRED: allows you to access stim in helpers
+      $('#movie_fixed_ms_instruction').text("One thousand movies were released in 2013. How much do you think these movies grossed while they were running in theaters? How many of these 1000 movies grossed:"); //FRED
+      this.sentence_types = ["1", "10", "50", "100", "500", "500+"];
+      var sentences = {
+        "1": "Less than $1,000,000",
+        "10": "Between $1,000,000 and $10,000,000",
+        "50": "Between $10,000,000 and $50,000,000",
+        "100": "Between $50,000,000 and $100,000,000",
+        "500": "Between $100,000,000 and $500,000,000",
+        "500+": "More than $500,000,000",
+      };
+      this.n_sliders = 6;
+      $(".slider_row").remove();
+      for (var i=0; i<this.n_sliders; i++) {
+        var sentence_type = this.sentence_types[i];
+        var sentence = sentences[sentence_type];
+        if (i != 5) {
+          $("#movie_fixed_multi_slider_table").append('<tr class="slider_row"><td class="slider_target" id="sentence' + i + '">' + sentence + '</td><td colspan="2"><div id="movie_fixed_slider' + i + '" class="slider">-------[ ]--------</div></td></tr>');
+          utils.match_row_height("#multi_slider_table", ".slider_target");
+        } else {
+          $("#movie_fixed_multi_slider_table").append('<tr class="slider_row"><td class="slider_target" id="sentence' + i + '">' + sentence + '</td><td colspan="2"><div id="movie_fixed_slider' + i + '" class="slider">-------[ ]--------</div></td></tr>');
+          utils.match_row_height("#multi_slider_table", ".slider_target");  
+        }
+
+      }
+      this.init_sliders(this.sentence_types);
+      exp.sliderPost = [];
+    },
+    button : function() {
+      if (exp.sliderPost.length < this.n_sliders - 1) {
+        $(".err").show();
+      } else {
+        this.log_responses();
+        _stream.apply(this); //use _stream.apply(this); if and only if there is "present" data.
+      }
+    },
+    init_sliders : function(sentence_types) {
+      for (var i=0; i<this.n_sliders; i++) {
+        if (i != 1) {
+          var sentence_type = sentence_types[i];
+          utils.make_slider("#movie_fixed_slider" + i, this.make_slider_callback(i));         
+        } else {
+          var sentence_type = sentence_types[i];
+          var fix_value = 0.12;
+          utils.make_fixed_slider("#movie_fixed_slider" + i, this.make_slider_callback(i), fix_value);
+          $("#movie_fixed_slider1").slider("disable");        
+        }
+      }
+    },
+    make_slider_callback : function(i) {
+      return function(event, ui) {
+        exp.sliderPost[i] = ui.value;
+      };
+    },
+    log_responses : function() {
+      for (var i=0; i<this.n_sliders; i++) {
+        var sentence_type = this.sentence_types[i];
+        exp.data_trials.push({
+          "trial_type" : "movie_fixed_multi_slider",
+          "sentence_type" : sentence_type,
+          "response" : exp.sliderPost[i]
+        });
+      }
+    },
+  });
+
+
+  slides.age_fixed_multi_slider = slide({
+    name : "age_fixed_multi_slider",
+    present : [{"property":"Movies"},],
+    present_handle : function(stim) {
+      $(".err").hide();
+      this.stim = stim; //FRED: allows you to access stim in helpers
+      $('#age_fixed_ms_instruction').text("How old do you think a person born in the year 2000 in the United States would live to be?"); //FRED
+      this.sentence_types = ["20", "30", "40", "50", "60", "70", "80", "90"];
+      var sentences = {
+        "20": "Less than 20 years old",
+        "30": "Between 20 and 30 years old",
+        "40": "Between 30 and 40 years old",
+        "50": "Between 40 and 50 years old",
+        "60": "Between 50 and 60 years old",
+        "70": "Between 60 and 70 years old",
+        "80": "Between 70 and 80 years old",
+        "90": "Above 80 years old",
+      };
+      this.n_sliders = 8;
+      $(".slider_row").remove();
+      for (var i=0; i<this.n_sliders; i++) {
+        var sentence_type = this.sentence_types[i];
+        var sentence = sentences[sentence_type];
+        if (i != 6) {
+          $("#age_fixed_multi_slider_table").append('<tr class="slider_row"><td class="slider_target" id="sentence' + i + '">' + sentence + '</td><td colspan="2"><div id="age_fixed_slider' + i + '" class="slider">-------[ ]--------</div></td></tr>');
+          utils.match_row_height("#multi_slider_table", ".slider_target");
+        } else {
+          $("#age_fixed_multi_slider_table").append('<tr class="slider_row"><td class="slider_target" id="sentence' + i + '">' + sentence + '</td><td colspan="2"><div id="age_fixed_slider' + i + '" class="slider">-------[ ]--------</div></td></tr>');
+          utils.match_row_height("#multi_slider_table", ".slider_target");  
+        }
+
+      }
+      this.init_sliders(this.sentence_types);
+      exp.sliderPost = [];
+    },
+    button : function() {
+      if (exp.sliderPost.length < this.n_sliders - 1) {
+        $(".err").show();
+      } else {
+        this.log_responses();
+        _stream.apply(this); //use _stream.apply(this); if and only if there is "present" data.
+      }
+    },
+    init_sliders : function(sentence_types) {
+      for (var i=0; i<this.n_sliders; i++) {
+        if (i != 6) {
+          var sentence_type = sentence_types[i];
+          utils.make_slider("#age_fixed_slider" + i, this.make_slider_callback(i));         
+        } else {
+          var sentence_type = sentence_types[i];
+          var fix_value = 0.21;
+          utils.make_fixed_slider("#age_fixed_slider" + i, this.make_slider_callback(i), fix_value);
+          $("#age_fixed_slider6").slider("disable");        
+        }
+      }
+    },
+    make_slider_callback : function(i) {
+      return function(event, ui) {
+        exp.sliderPost[i] = ui.value;
+      };
+    },
+    log_responses : function() {
+      for (var i=0; i<this.n_sliders; i++) {
+        var sentence_type = this.sentence_types[i];
+        exp.data_trials.push({
+          "trial_type" : "age_fixed_multi_slider",
+          "sentence_type" : sentence_type,
+          "response" : exp.sliderPost[i]
+        });
+      }
+    },
+  });
 
 
 
@@ -464,7 +599,7 @@ function init() {
   //blocks of the experiment:
   block1 = _.shuffle(["first_single_slide", "second_single_slide", "third_single_slide"]);
   block2 = _.shuffle(["car_multi_slider", "movie_multi_slider", "age_multi_slider"]);
-  block3 = _.shuffle(["car_fixed_multi_slider"]);
+  block3 = _.shuffle(["car_fixed_multi_slider", "movie_fixed_multi_slider", "age_fixed_multi_slider"]);
 
   //exp.structure=["i0", "instructions", "familiarization", "first_single_slide", "second_single_slide", "third_single_slide", 'car_multi_slider', 'movie_multi_slider', 'age_multi_slider', 'car_fixed_multi_slider', 'subj_info', 'thanks'];
   pre = ["i0", "instructions"];

@@ -74,14 +74,14 @@ var utils = {
 				$(label).css({"background":"#eee"});
 	},
 
-	make_fixed_slider: function(label, response_callback) {
+	make_fixed_slider: function(label, response_callback, fix_value) {
 		$(label).empty();
 		$(label).slider({
 			range : "min",
 			min : 0,
 			max : 1,
 			step: 0.01,
-			value : 0.75,
+			value : fix_value,
 			slide : response_callback,
 						change : response_callback
 		});
