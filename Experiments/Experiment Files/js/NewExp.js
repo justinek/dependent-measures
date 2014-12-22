@@ -62,7 +62,7 @@ function make_slides(f) {
     start : function() {
       $(".err").hide();
       var rand = Math.floor(Math.random()*(55-45+1)+45);
-      $('#ss_instruction2').text("On the same planet, there is a " + rand + "% chance that an alien baby has green eyes. If 100 babies are born, approximately how many will have green eyes?" ); //FRED
+      $('#ss_instruction2').text("Aliens living underground on Mars, for the most part, have black eyes. However " + rand + "% of these aliens have green eyes. If you met 100 aliens on Mars, how many do you think would have green eyes?"); //FRED
       this.init_sliders();
       exp.sliderPost = null;
     },
@@ -93,7 +93,7 @@ function make_slides(f) {
     start : function() {
       $(".err").hide();
       var rand = Math.floor(Math.random()*(99-90+1)+90);
-      $('#ss_instruction3').text("Very few aliens on this planet are born without horns. If there is a " + rand + "% chance that an alien has horns, approximately how many out of a 100 aliens will have horns?" ); //FRED
+      $('#ss_instruction3').text("Pluto, although not a planet, was recently discovered to be the home of an alien species. The aliens there were very diverse, but it was found that there was a " + rand + "% chance that aliens from Pluto had horns. If you met 100 aliens on Pluto, how many do you think would have horns?"); //FRED
       this.init_sliders();
       exp.sliderPost = null;
     },
@@ -190,7 +190,7 @@ function make_slides(f) {
     },
     make_slider_callback : function(i) {
       return function(event, ui) {
-        exp.sliderPost[i] = ui.value;
+        exp.sliderPost[i] = ui.value * 1000;
       };
     },
     log_responses : function() {
@@ -212,7 +212,7 @@ function make_slides(f) {
     present_handle : function(stim) {
       $(".err").hide();
       this.stim = stim; //FRED: allows you to access stim in helpers
-      $('#movie_ms_instruction').text("One thousand movies were released in 2013. How much do you think these movies grossed while they were running in theaters? How many of these 1000 movies grossed:"); //FRED
+      $('#movie_ms_instruction').text("One thousand movies were released in 2013, to various degrees of success. Some movies made it big at the box office; others, not so much. How many of these 1000 movies grossed:"); //FRED
       this.sentence_types = ["1", "10", "50", "100", "500", "500+"];
       var sentences = {
         "1": "Less than $1,000,000",
@@ -249,7 +249,7 @@ function make_slides(f) {
     },
     make_slider_callback : function(i) {
       return function(event, ui) {
-        exp.sliderPost[i] = ui.value;
+        exp.sliderPost[i] = ui.value * 1000;
       };
     },
     log_responses : function() {
@@ -272,7 +272,7 @@ function make_slides(f) {
     present_handle : function(stim) {
       $(".err").hide();
       this.stim = stim; //FRED: allows you to access stim in helpers
-      $('#age_ms_instruction').text("How old do you think a person born in the year 2000 in the United States would live to be?"); //FRED
+      $('#age_ms_instruction').text("Out of a 100 people born in the United States in 2009, how many people do you think would live to be between: "); //FRED
       this.sentence_types = ["20", "30", "40", "50", "60", "70", "80", "90"];
       var sentences = {
         "20": "Less than 20 years old",
@@ -312,7 +312,7 @@ function make_slides(f) {
     },
     make_slider_callback : function(i) {
       return function(event, ui) {
-        exp.sliderPost[i] = ui.value;
+        exp.sliderPost[i] = ui.value * 100;
       };
     },
     log_responses : function() {
@@ -335,7 +335,7 @@ function make_slides(f) {
     present_handle : function(stim) {
       $(".err").hide();
       this.stim = stim; //FRED: allows you to access stim in helpers
-      $('#car_fixed_ms_instruction').text("Suppose you are sitting on a bridge overlooking a freeway. If you see one thousand cars drive by, what colors do you think they will be. Use these sliders to tell us what you think."); //FRED
+      $('#car_fixed_ms_instruction').text("Let's say you're watching cars on the freeway again. This time, your friend sitting next to you says that he saw 250 white cars out of the 1000. With that in mind, how many cars of other colors do you think passed by?"); //FRED
       this.sentence_types = ["White", "Red", "Blue", "Black", "Yellow", "Silver/Gray"];
       var sentences = {
         "White": "How many white cars did you see?",
@@ -385,7 +385,7 @@ function make_slides(f) {
     },
     make_slider_callback : function(i) {
       return function(event, ui) {
-        exp.sliderPost[i] = ui.value;
+        exp.sliderPost[i] = ui.value * 1000;
       };
     },
     log_responses : function() {
@@ -407,7 +407,7 @@ function make_slides(f) {
     present_handle : function(stim) {
       $(".err").hide();
       this.stim = stim; //FRED: allows you to access stim in helpers
-      $('#movie_fixed_ms_instruction').text("One thousand movies were released in 2013. How much do you think these movies grossed while they were running in theaters? How many of these 1000 movies grossed:"); //FRED
+      $('#movie_fixed_ms_instruction').text("Out of the 1000 movies released in 2013, 120 made between $1,000,000 and $10,000,000. How much do you think the other movies made?"); //FRED
       this.sentence_types = ["1", "10", "50", "100", "500", "500+"];
       var sentences = {
         "1": "Less than $1,000,000",
@@ -422,7 +422,7 @@ function make_slides(f) {
       for (var i=0; i<this.n_sliders; i++) {
         var sentence_type = this.sentence_types[i];
         var sentence = sentences[sentence_type];
-        if (i != 5) {
+        if (i != 1) {
           $("#movie_fixed_multi_slider_table").append('<tr class="slider_row"><td class="slider_target" id="sentence' + i + '">' + sentence + '</td><td colspan="2"><div id="movie_fixed_slider' + i + '" class="slider">-------[ ]--------</div></td></tr>');
           utils.match_row_height("#multi_slider_table", ".slider_target");
         } else {
@@ -457,7 +457,7 @@ function make_slides(f) {
     },
     make_slider_callback : function(i) {
       return function(event, ui) {
-        exp.sliderPost[i] = ui.value;
+        exp.sliderPost[i] = ui.value * 1000;
       };
     },
     log_responses : function() {
@@ -479,7 +479,7 @@ function make_slides(f) {
     present_handle : function(stim) {
       $(".err").hide();
       this.stim = stim; //FRED: allows you to access stim in helpers
-      $('#age_fixed_ms_instruction').text("How old do you think a person born in the year 2000 in the United States would live to be?"); //FRED
+      $('#age_fixed_ms_instruction').text("If I told you that 22 out of a 100 people live to be between 70 and 80 years old, how old do you think the rest of the 100 people would live to be?"); //FRED
       this.sentence_types = ["20", "30", "40", "50", "60", "70", "80", "90"];
       var sentences = {
         "20": "Less than 20 years old",
@@ -531,7 +531,7 @@ function make_slides(f) {
     },
     make_slider_callback : function(i) {
       return function(event, ui) {
-        exp.sliderPost[i] = ui.value;
+        exp.sliderPost[i] = ui.value * 100;
       };
     },
     log_responses : function() {
